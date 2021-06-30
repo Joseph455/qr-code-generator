@@ -48,7 +48,7 @@ def file_generator(link: str, type: str) -> tuple:
     img_file = qrcode.make(
         data=link,
         image_factory=factories.get(type, 'svg'),
-        box_size=20env("DEBUG")
+        box_size=20
     )
     
     if type != "svg":
