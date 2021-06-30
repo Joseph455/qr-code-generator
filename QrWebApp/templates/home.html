@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% load static %}
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Landing Page</title>
+  <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+</head>
+<body class="d-flex flex-column h-100 w-100">
+  
+  <div class="display-4" >
+      <h1>QrCode Generator</h1>
+  </div>
+
+  <div class="d-flex align-self-center w-75">
+
+    {% csrf_token %}
+    <div id="form">
+      <div class="form-group">
+        <label for="url_field">Link</label>
+        <input id="url_field" class="form-control w-75" name="url_field" placeholder="input Link" />
+      </div>
+      
+      <div class="form-group">
+        <label for="email_field">Email</label>
+        <input id="email_field" class="form-control w-75" name="email_field" placeholder="input Email address" />
+        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+      </div>
+      
+      <div class="form-group">
+        <label for="format">Image Format</label>
+        <select class="form-control" id="format_field">
+          <option value="svg" selected>SVG</option>
+          <option value="png">PNG</option>
+          <option value="jpeg">JPEG</option>
+          <small id="formatHelp" class="form-text text-muted">This is the format for the qrcode file that will be generated</small>
+        </select>
+      </div>
+      <button id="submit"  class="btn btn-lg btn-primary">Submit</button>
+    </div>
+
+
+  </div>
+  <div id="output" class="d-flex align-self-center w-auto flex-column">
+    
+  </div>
+
+  <script>
+    window.onload = () => 
+    {
+      let url = "{{ submition_url }}";
+      let xhr = new XMLHttpRequest(url);
+      let btn = document.getElementById("submit");
+      let out = document.getElementById('output');
+      btn.addEventListener("click", ()=> { 
+        xhr.open("POST", url);
+         
+        let csrf = document.getElementsByName("csrfmiddlewaretoken")[0];
+        xhr.setRequestHeader("X-CSRFToken", csrf.value);
+        
+        let form = new FormData();
+        let email_data = document.getElementById("email_field").value;
+        let format_data =document.getElementById("format_field").value;
+        
+        let url_data = document.getElementById("url_field").value;
+        if (! (url_data.includes("http") || url_data.includes("https") ))
+        {
+          url_data = "http://" + url_data;
+        }
+
+        form.append("url", url_data);
+        form.append("email", email_data);
+        form.append("type", format_data);
+        
+        xhr.send(form);
+        
+
+        out.innerHTML =  `
+          <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        `;
+        
+      })
+      xhr.onload = () => {
+        out.innerHTML = "";
+        if (xhr.status == 200 || xhr.status==201) 
+        {
+          let res = JSON.parse(xhr.responseText);
+          out.innerHTML = `<div class="d-flex align-self-center" >${res.preview}</div>` + `<div class="alert alert-success w-auto p-2" role="aler0t"> ${res.message} </div>`;
+        } else {
+          let error = JSON.parse(xhr.responseText);
+          let msgs = "";
+          
+          Object.keys(error).forEach((key) => {
+            msgs += error[key] + "<br/>";
+          })
+          console.log(msgs, error)
+          out.innerHTML = `<div class="alert alert-warning w-100 p-2 mt-2" role="alert"> ${msgs} </div>`;
+        }
+      
+      }
+
+    }
+  </script>
+</body>
+</html>

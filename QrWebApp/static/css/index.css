@@ -1,0 +1,89 @@
+.profileThumb{
+  min-width: 50px;
+}
+
+.iconStyling{
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+
+.desktopWidth{
+  max-width: 1024px;
+  margin: auto;
+}
+
+.replyDisplay{
+  background-color: rgb(250,250,250);
+}
+
+.fixedMenuFix{
+  margin-top: 4em
+}
+
+.btn{
+  span{
+  font-weight: bold;
+    color: white;
+  }
+}
+
+
+/* style 5 */
+
+.inputfile-5 + label {
+  color: #d3394c;
+}
+
+.inputfile-5:focus + label,
+.inputfile-5.has-focus + label,
+.inputfile-5 + label:hover {
+  color: #722040;
+}
+
+.inputfile-5 + label figure {
+  width: 100px;
+  height: 135px;
+  background-color: #d3394c;
+  display: block;
+  position: relative;
+  padding: 30px;
+  margin: 0 auto 10px;
+}
+
+.inputfile-5:focus + label figure,
+.inputfile-5.has-focus + label figure,
+.inputfile-5 + label:hover figure {
+  background-color: #722040;
+}
+
+.inputfile-5 + label figure::before,
+.inputfile-5 + label figure::after {
+  width: 0;
+  height: 0;
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.inputfile-5 + label figure::before {
+  border-top: 20px solid #dfc8ca;
+  border-left: 20px solid transparent;
+}
+
+.inputfile-5 + label figure::after {
+  border-bottom: 20px solid #722040;
+  border-right: 20px solid transparent;
+}
+
+.inputfile-5:focus + label figure::after,
+.inputfile-5.has-focus + label figure::after,
+.inputfile-5 + label:hover figure::after {
+  border-bottom-color: #d3394c;
+}
+
+.inputfile-5 + label svg {
+  width: 100%;
+  height: 100%;
+  fill: #f1e5e6;
+}
