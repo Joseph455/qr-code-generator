@@ -28,7 +28,7 @@ def home(request):
 def name_generator(date: str, file_type: str) -> str:
     choices = ascii_lowercase + ascii_uppercase + "0123456789"
     name = "".join([random.choice(choices) for i in range(10)])
-    full_name = f'media/{name}.{file_type}'
+    full_name = f'/media/{name}.{file_type}'
     return full_name
     
 def file_generator(link: str, type: str) -> tuple:
@@ -48,7 +48,7 @@ def file_generator(link: str, type: str) -> tuple:
     img_file = qrcode.make(
         data=link,
         image_factory=factories.get(type, 'svg'),
-        box_size=20
+        box_size=20env("DEBUG")
     )
     
     if type != "svg":
