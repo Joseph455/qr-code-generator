@@ -130,8 +130,8 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 # This are settings for a gmail account 
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = env("EMAIL_HOST") 
 EMAIL_PORT = env("EMAIL_PORT") # use 587 in production
 EMAIL_HOST_USER = env("EMAIL_HOST_USER")
