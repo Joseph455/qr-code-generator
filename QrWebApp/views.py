@@ -1,20 +1,25 @@
-from django.http import response
 from django.http.response import Http404, HttpResponseBadRequest, HttpResponseNotAllowed, JsonResponse
+from django.http import response
 from django.shortcuts import render
 from django.urls import reverse
-from io import BytesIO
-from io import FileIO
-import qrcode
-from qrcode.image.svg import SvgImage
-from qrcode.image.pil import PilImage
 from django.utils import timezone
 from django.core.mail import EmailMessage, BadHeaderError
-import json
+
 from string import ascii_lowercase, ascii_uppercase
+from qrcode.image.svg import SvgImage
+from qrcode.image.pil import PilImage
+
+from io import BytesIO
+from io import FileIO
+
+import json
 import os
+import qrcode
 import random
 
 from QrWebApp.forms import RequestForm
+
+from django.conf.global_settings import MEDIA_ROOT
 
 # Create your views here.
 
@@ -28,7 +33,7 @@ def home(request):
 def name_generator(date: str, file_type: str) -> str:
     choices = ascii_lowercase + ascii_uppercase + "0123456789"
     name = "".join([random.choice(choices) for i in range(10)])
-    full_name = f'/media/{name}.{file_type}'
+    full_name = f'{MEDIA_ROOT}/{name}.{file_type}'
     return full_name
     
 def file_generator(link: str, type: str) -> tuple:
