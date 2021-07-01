@@ -170,6 +170,6 @@ EMAIL_USE_TLS = True
 
 
 import django_heroku
-django_heroku.settigns(locals(), staticfiles=False)
+django_heroku.settings(locals(), staticfiles=False)
 
 
