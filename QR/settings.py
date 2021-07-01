@@ -165,3 +165,11 @@ EMAIL_PORT = env("EMAIL_PORT") # use 587 in production
 EMAIL_HOST_USER = env("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
 EMAIL_USE_TLS = True
+
+
+
+
+import django_heroku
+django_heroku.settigns(locals(), staticfiles=False)
+
+
